@@ -1,19 +1,7 @@
 {
-  "posts": [
-    { "id": 1, "title": "Post 1" },
-    { "id": 2, "title": "Post 2" },
-    { "id": 3, "title": "Post 3" }
-  ],
-  "comments": [
-    { "id": 1, "body": "some comment", "postId": 1 },
-    { "id": 2, "body": "some comment", "postId": 1 }
-  ],
   "wallets": [
-    { "amount": 800.0000, "type": "debit", "timestamp": "2020-11-28 18:22:04 +0800" },
-    { "amount": 500.0000, "type": "credit", "timestamp": "2020-11-30 18:22:04 +0800" },
-    { "amount": 1500.0000, "type": "credit", "timestamp": "2020-11-29 18:22:04 +0800" }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+    { "id": "B1FA093D-F61D-405F-9F56-9ED0C3FBCB8C", "amount": 800.0000, "type": "debit", "timestamp": "2020-11-28 18:22:04 +0800" },
+    { "id": "A4FA093D-F61D-405F-9F56-9ED0C3FBCB8C", "amount": 500.0000, "type": "credit", "timestamp": "2020-11-30 18:22:04 +0800" },
+    { "id": "C5FA093D-F61D-405F-9F56-9ED0C3FBCB8C", "amount": 1500.0000, "type": "credit", "timestamp": "2020-11-29 18:22:04 +0800" }
+  ]
 }
