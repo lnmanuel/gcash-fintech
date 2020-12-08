@@ -1,0 +1,11 @@
+import json
+import requests
+
+url = "https://my-json-server.typicode.com/lnmanuel/gcash-fintech/wallets"
+
+response = requests.get(url)
+new = requests.post(url, data = { "amount": 500.0000, "type": "credit"})
+
+# requests.put(url, data = {'key':'value'})
+print(response.headers["date"]) 
+print(response.text)
