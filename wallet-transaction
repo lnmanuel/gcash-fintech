@@ -1,0 +1,56 @@
+from flask import Flask, jsonify, request
+
+transactions = [
+   { "tid": 1, "id": "A4FA093D-F61D-405F-9F56-9ED0C3FBCB8C", "amount": 800.0000, "type": "debit", "timestamp": "2020-11-28 18:22:04 +0800" },
+   { "tid": 2, "id": "A4FA093D-F61D-405F-9F56-9ED0C3FBCB8C", "amount": 1500.0000, "type": "credit", "timestamp": "2020-11-29 18:22:04 +0800" },
+   { "tid": 3, "id": "A4FA093D-F61D-405F-9F56-9ED0C3FBCB8C", "amount": 500.0000, "type": "credit", "timestamp": "2020-11-30 18:22:04 +0800" }
+]
+
+app = Flask(__name__)
+
+@app.route("/")
+def index():
+    return "Wallet Platform"
+
+@app.route("/wallets/:walletId/transactions", methods=["GET"])
+def get_transactions():
+    #descending order
+    #4 decimals
+    return jsonify({"transactions": transactions})
+
+# not working
+@app.route("/wallets/:walletId/transactions" methods=['POST'])
+def new_transaction():
+    if not request.json or not 'tid' in request.json:
+        abort(400)
+    transaction = {
+        "tid": request.json['tid'],
+        "id": transactions[-1]['id'],
+        "amount": request.json.get("amount", 500.0000),
+        "type": request.json.get("type", "credit"),
+        "timestamp": request.json.get("timestamp", "")
+    }
+    transactions.append(transaction)
+    return jsonify({'transaction': transaction}), 201
+
+@app.route("/wallets/:walletId/transactions/:transactionId/<int:transaction_id>", methods=["GET"])
+def get_transaction(transaction_id):
+    #use transaction id as param
+    result = {}
+    for transaction in transactions:
+        if transaction["tid"] == transaction_id:
+            result = jsonify({"transaction": transaction})
+    return result
+
+@app.route("/wallets/:walletId/balance/<string:wallet_id>", methods=["GET"])
+def get_balance(wallet_id):
+    #use wallet id as param
+    result = {}
+    for transaction in transactions:
+        if transaction["id"] == wallet_id:
+            ##exclude other params
+            result = jsonify({"transaction": transaction})
+    return result
+
+if __name__ == "__main__":
+    app.run()
